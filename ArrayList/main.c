@@ -1,35 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-typedef struct _array(){
-	
-	plist 
-} List;
+#include "ArrayList.h"
 
-void ListInit(List* plist){
-	
-}
-
-void LInsert(List* plist, LData data){
-	
-	
-}
 
 int main(void) {
+	List list;
+	int data;	
+	ListInit(&list);
 	
+	LInsert(&list, 11);
+	LInsert(&list, 55);
+	LInsert(&list, 22);
+	LInsert(&list, 44);
+	LInsert(&list, 33);
 	
+	if(LFirst(&list, &data)) {
+		printf("%d ", data);
+		while(LNext(&list, &data)) {
+			printf("%d ", data);
+	 	}
+	}
 	
 	return 0;
 }
 
-
-int LFirst (List* plist, LData * pdata){
-	
-}
-
-int LNext (List* plist, LData * pdata){
-	
-}
-
-LData LRemove(){
-	
-}
