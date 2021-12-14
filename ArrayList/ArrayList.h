@@ -6,7 +6,7 @@
 
 #define LIST_LEN 100
 
-typedef int LData;
+typedef Point* LData;
 
 typedef struct _ArrayList{
 	LData arr[LIST_LEN];// 리스트 저장소 
