@@ -3,7 +3,7 @@
 #include "ArrayList.h"
 #include "Point.h"
 
-int main(void) {
+int PointListMain(void) {
 	List list;
 	Point comPos;
 	Point* ppos;
@@ -61,7 +61,6 @@ int main(void) {
 	
 	return 0;
 }
-
 
 
 /*
