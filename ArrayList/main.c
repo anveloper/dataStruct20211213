@@ -3,13 +3,65 @@
 #include "ArrayList.h"
 #include "Point.h"
 
-int main(void){
+int main(void) {
+	List list;
+	Point comPos;
+	Point* ppos;
 	
+	ppos = (Point*)malloc(sizeof(Point)); // 초기화 
+	SetPointPos(ppos, 3, 1); // ppos에 값 입력 
+	LInsert(&list, ppos); // list에 ppos 저장값을 저장 
 	
+	ppos = (Point*)malloc(sizeof(Point));
+	SetPointPos(ppos, 3, 2);
+	LInsert(&list, ppos);
 	
+	ppos = (Point*)malloc(sizeof(Point));
+	SetPointPos(ppos, 4, 1);
+	LInsert(&list, ppos);
+	
+	ppos = (Point*)malloc(sizeof(Point));
+	SetPointPos(ppos, 4, 2);
+	LInsert(&list, ppos);
+		
+	// 전체 데이터 출력
+	printf("== 현재 저장된 데이터 ==\n"); 
+	if(LFirst(&list, &ppos)) {
+		ShowPointPos(ppos);
+		while(LNext(&list, &ppos)) {
+			ShowPointPos(ppos);
+		}
+	}
+	
+	// xpos가 4인 데이터 모두 삭제
+	
+	comPos.xpos = 4;
+	comPos.ypos = -1;
+	if(LFirst(&list, &ppos)) {
+		if(PointComp(ppos, &comPos) == 1) {
+			ppos = LRemove(&list);
+			free(ppos);
+		}
+		while(LNext(&list, &ppos)) {
+			if(PointComp(ppos, &comPos) == 1) {
+				ppos = LRemove(&list);
+				free(ppos);
+			}
+		}
+	}	
+		
+	// 전체 데이터 출력
+	printf("== 현재 저장된 데이터 ==\n"); 
+	if(LFirst(&list, &ppos)) {
+		ShowPointPos(ppos);
+		while(LNext(&list, &ppos)) {
+			ShowPointPos(ppos);
+		}
+	}
 	
 	return 0;
 }
+
 
 
 /*
