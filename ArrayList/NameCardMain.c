@@ -8,11 +8,26 @@ int main(void){
 	NameCard* nameCard;
 	ListInit(&list);
 	int cmdFlag = 0;
+	int i = 0; 
 	char name[10];
 	char phone[10];
+	// 예제 데이터 
+	nameCard = MakeNameCard("테스트", "000-1111-0000");
+	LInsert(&list, nameCard);
+	nameCard = MakeNameCard("스트테", "000-2222-0000");
+	LInsert(&list, nameCard);
+	nameCard = MakeNameCard("트테스", "000-3333-0000");
+	LInsert(&list, nameCard);
+	nameCard = MakeNameCard("홍길동", "000-3536-0000");
+	LInsert(&list, nameCard);
+	nameCard = MakeNameCard("백두산", "000-3343-0600");
+	LInsert(&list, nameCard);
+	nameCard = MakeNameCard("계족산", "000-3333-0000");
+	LInsert(&list, nameCard);
+	
 	while(1){
 		cmdFlag = 0;
-		
+		i = 0;
 		printf("***** MENU *****\n");
 		printf("1. Insert		: 데이터를 추가\n");
 		printf("2. Search		: 데이터를 검색, 이름을 기준으로 검색\n");
@@ -21,42 +36,69 @@ int main(void){
 		printf("5. Print All		: 모든 데이터를 출력\n");
 		printf("6. Count		: 현재 데이터의 수를 반환\n");
 		printf("7. Exit			: 콘솔 프로그램을 종료\n");
-		printf("* Choose the item : ");
+		printf("> Choose the item : ");
 		scanf("%d",&cmdFlag); 
 		
 		if(cmdFlag == 7){
 			printf("[ EXIT ]\n");
 			break;
-		} else if (cmdFlag == 1){
-			printf("[ Insert ]\n");
-			printf("* 이름 : ");
-			scanf("%s", name);
-			printf("* 연락처 : ");
-			scanf("%s", phone);
+		} else if (cmdFlag == 1){ // 문제점.. 이름이 같으면 어떻게 구분할 것인지 
+			NameCard newName; 
+			printf("[ INSERT ]\n");
+			printf("> 이름 : ");
+			scanf("%s", &newName.name);
+			printf("> 연락처 : ");
+			scanf("%s", &newName.phone);
 			
-			nameCard = MakeNameCard(name, phone);
+			nameCard = MakeNameCard(newName.name, newName.phone);
 			LInsert(&list, nameCard);
-			
-		} else if (cmdFlag == 2){
-			printf("[ Search ]\n");
-			printf("* 이름 : ");
+			printf("* %s 등록이 완료되었습니다.\n", newName.name);
+			printf("\n");
+		} else if (cmdFlag == 2){ // 검색된 결과 없을때 (해결) 
+			printf("[ SEARCH ]\n");
+			printf("> 이름 : ");
 			scanf("%s", name);
+			i = LCount(&list); //검색 마다 감소 시킬 비교 값 
 			if(LFirst(&list,&nameCard)) {
 				if(NameCompare(nameCard, name) == 0) {
-					ShowNameCardInfo(nameCard);		
+					ShowNameCardInfo(nameCard);
+					i--;
 				}
 				while(LNext(&list, &nameCard)) {
 					if(NameCompare(nameCard, name) == 0) {
 						ShowNameCardInfo(nameCard);		
+						i--;
 					}
 				} 
 			} 
-			
+			if(i == LCount(&list)){  // 검색된 내용이 없을때 표시하기 
+				printf("* 해당하는 이름이 없습니다.\n");
+			} else {
+				printf("* %s 검색이 완료되었습니다.\n", name);
+			} 			
+			printf("\n");			
 		} else if (cmdFlag == 3){
-			printf("[ Modify ]\n");
-			printf("* 이름 : ");
+			printf("[ MODIFY ]\n");
+			printf("> 이름 : ");
 			scanf("%s", name);
-			printf("* 수정할 연락처 : ");
+			
+			i = LCount(&list); // 이름이 있는지 확인하는 부분 
+			if(LFirst(&list,&nameCard)) {
+				if(NameCompare(nameCard, name) == 0) {
+					i--;
+				}
+				while(LNext(&list, &nameCard)) {
+					if(NameCompare(nameCard, name) == 0) {
+						i--;
+					}
+				} 
+			} 
+			if(i == LCount(&list)){
+				printf("* 해당하는 이름이 없습니다.\n\n");
+				continue; 
+			} // 이름이 없으면 continue 
+			
+			printf("> 수정할 연락처 : ");
 			scanf("%s", phone);
 			if(LFirst(&list,&nameCard)) {
 				if(NameCompare(nameCard, name) == 0) {
@@ -68,11 +110,29 @@ int main(void){
 					}
 				} 
 			} 
-			
+			printf("* %s 수정이 완료되었습니다.\n", name);
+		
+			printf("\n");	
 		} else if (cmdFlag == 4){
-			printf("[ Delete ]\n");
-			printf("* 이름 : ");
+			printf("[ DELETE ]\n");
+			printf("> 이름 : ");
 			scanf("%s", name);
+			
+			i = LCount(&list); // 이름이 있는지 확인하는 부분 
+			if(LFirst(&list,&nameCard)) {
+				if(NameCompare(nameCard, name) == 0) {
+					i--;
+				}
+				while(LNext(&list, &nameCard)) {
+					if(NameCompare(nameCard, name) == 0) {
+						i--;
+					}
+				} 
+			} 
+			if(i == LCount(&list)){
+				printf("* 해당하는 이름이 없습니다.\n\n");
+				continue; 
+			} // 이름이 없으면 continue 
 			
 			if(LFirst(&list,&nameCard)) {
 				if(NameCompare(nameCard, name) == 0) {
@@ -86,9 +146,11 @@ int main(void){
 					}
 				} 
 			} 
+			printf("* %s 삭제가 완료되었습니다.\n", name);
 			
+			printf("\n");
 		} else if (cmdFlag == 5){
-			printf("[ Print All ]\n");
+			printf("[ PRINT All ]\n");
 			
 			if(LFirst(&list,&nameCard)) {
 				ShowNameCardInfo(nameCard);		
@@ -97,11 +159,12 @@ int main(void){
 				} 
 			} 
 			
+			printf("\n");
 		} else if (cmdFlag == 6){
-			printf("[ Count ]\n");
+			printf("[ COUNT ]\n");
 			
 			printf("현재 데이터의 수 : %d\n", LCount(&list));
-			
+			printf("\n");
 		} else {
 			printf("**** 잘못 입력하였습니다.****\n");
 		}

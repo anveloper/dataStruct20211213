@@ -12,7 +12,7 @@ NameCard* MakeNameCard(char* name, char* phone) {
 	return newCard;
 }
 void ShowNameCardInfo(NameCard* pcard) {
-	printf("이름 : %s,	전화번호 : %s\n", pcard->name, pcard->phone);
+	printf("  이름 : %-10s		전화번호 : %s\n", pcard->name, pcard->phone);
 }
 int NameCompare(NameCard* pcard, char* name) {
 	return strcmp(pcard->name, name);
