@@ -8,8 +8,11 @@ int main(void){
 	NameCard* nameCard;
 	ListInit(&list);
 	int cmdFlag = 0;
+	char name[10];
+	char phone[10];
 	while(1){
 		cmdFlag = 0;
+		
 		printf("***** MENU *****\n");
 		printf("1. Insert		: 데이터를 추가\n");
 		printf("2. Search		: 데이터를 검색, 이름을 기준으로 검색\n");
@@ -26,36 +29,85 @@ int main(void){
 			break;
 		} else if (cmdFlag == 1){
 			printf("[ Insert ]\n");
+			printf("* 이름 : ");
+			scanf("%s", name);
+			printf("* 연락처 : ");
+			scanf("%s", phone);
 			
+			nameCard = MakeNameCard(name, phone);
+			LInsert(&list, nameCard);
 			
 		} else if (cmdFlag == 2){
 			printf("[ Search ]\n");
-			
+			printf("* 이름 : ");
+			scanf("%s", name);
+			if(LFirst(&list,&nameCard)) {
+				if(NameCompare(nameCard, name) == 0) {
+					ShowNameCardInfo(nameCard);		
+				}
+				while(LNext(&list, &nameCard)) {
+					if(NameCompare(nameCard, name) == 0) {
+						ShowNameCardInfo(nameCard);		
+					}
+				} 
+			} 
 			
 		} else if (cmdFlag == 3){
 			printf("[ Modify ]\n");
-			
+			printf("* 이름 : ");
+			scanf("%s", name);
+			printf("* 수정할 연락처 : ");
+			scanf("%s", phone);
+			if(LFirst(&list,&nameCard)) {
+				if(NameCompare(nameCard, name) == 0) {
+					ChangePhoneNumber(nameCard, phone);		
+				}
+				while(LNext(&list, &nameCard)) {
+					if(NameCompare(nameCard,name) == 0) {
+						ChangePhoneNumber(nameCard, phone);		
+					}
+				} 
+			} 
 			
 		} else if (cmdFlag == 4){
 			printf("[ Delete ]\n");
+			printf("* 이름 : ");
+			scanf("%s", name);
 			
+			if(LFirst(&list,&nameCard)) {
+				if(NameCompare(nameCard, name) == 0) {
+					LRemove(&list);
+					free(nameCard);		
+				}
+				while(LNext(&list, &nameCard)) {
+					if(NameCompare(nameCard, name) == 0) {
+						LRemove(&list);		
+						free(nameCard);	
+					}
+				} 
+			} 
 			
 		} else if (cmdFlag == 5){
 			printf("[ Print All ]\n");
 			
+			if(LFirst(&list,&nameCard)) {
+				ShowNameCardInfo(nameCard);		
+				while(LNext(&list, &nameCard)) {
+					ShowNameCardInfo(nameCard);
+				} 
+			} 
 			
 		} else if (cmdFlag == 6){
 			printf("[ Count ]\n");
 			
+			printf("현재 데이터의 수 : %d\n", LCount(&list));
 			
 		} else {
-			printf("* 잘못 입력하였습니다.\n");
+			printf("**** 잘못 입력하였습니다.****\n");
 		}
-		
-		
-		
+		while (getchar() != '\n'); 
+		//int형 정보를 받아야 할때, 범위 외 다른 정보가 들어오게 되면, 정보 추출에 실패하여 마지막에 입력된 \n가 반복되게 된다. 
 	}
-	
 	
 	return 0;
 }
