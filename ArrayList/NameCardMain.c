@@ -41,6 +41,7 @@ int main(void){
 		
 		if(cmdFlag == 7){
 			printf("[ EXIT ]\n");
+			
 			break;
 		} else if (cmdFlag == 1){ // 문제점.. 이름이 같으면 어떻게 구분할 것인지 
 			NameCard newName; 
@@ -53,6 +54,7 @@ int main(void){
 			nameCard = MakeNameCard(newName.name, newName.phone);
 			LInsert(&list, nameCard);
 			printf("* %s 등록이 완료되었습니다.\n", newName.name);
+			
 			printf("\n");
 		} else if (cmdFlag == 2){ // 검색된 결과 없을때 (해결) 
 			printf("[ SEARCH ]\n");
@@ -76,6 +78,7 @@ int main(void){
 			} else {
 				printf("* %s 검색이 완료되었습니다.\n", name);
 			} 			
+			
 			printf("\n");			
 		} else if (cmdFlag == 3){
 			printf("[ MODIFY ]\n");
