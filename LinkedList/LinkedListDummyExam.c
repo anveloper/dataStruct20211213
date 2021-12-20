@@ -29,7 +29,7 @@ int main(void){
 		
 		tail->next = newNode;
 		tail = newNode;
-		 
+		
 	}
 	
 	printf("\n\n");
