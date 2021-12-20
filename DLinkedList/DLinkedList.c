@@ -7,8 +7,8 @@ void ListInit(List* plist) {
 	plist->head->next = NULL;
 	plist->numOfData = 0;
 }
-
-void LInsert(List* plist, LData data) {
+// 정렬 기준이 없을 때 
+void FInsert(List* plist, LData data) {
 	Node* newNode = (Node*)malloc(sizeof(Node));
 	newNode->data = data;
 	
@@ -16,7 +16,29 @@ void LInsert(List* plist, LData data) {
 	plist->head->next = newNode;
 	
 	(plist->numOfData)++;
+}
+// 정렬 기준이 있을 때 
+void SInsert(List* plist, LData data) {
+	Node* newNode = (Node*)malloc(sizeof(Node));
+	newNode->data = data;
 	
+	Node* pred = plist->head;
+	
+	while(pred->next != NULL && plist->comp(data, pred->next->data) != 0) {
+		pred = pred->next;
+	}
+	newNode->next = pred->next;
+	pred->next = newNode;
+	
+	(plist->numOfData)++;
+} 
+
+void LInsert(List* plist, LData data) {
+	if(plist->comp == NULL){
+		FInsert(plist, data);
+	} else {
+		SInsert(plist, data);
+	}
 }
 
 int LFirst(List* plist, LData* pdata) {
@@ -51,5 +73,9 @@ LData LRemove(List* plist) {
 }
 int LCount(List* plist) {
 	return plist->numOfData;
+}
+
+void SetSortRule(List* plist, int (*comp)(LData d1, LData d2)) {
+	plist->comp = comp;
 }
 
