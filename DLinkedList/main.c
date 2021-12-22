@@ -3,7 +3,7 @@
 #include "DLinkedList.h"
 
 int WhoIsPrecede(LData d1, LData d2){
-	if(d1, d2) {
+	if(d1 < d2) {
 		return 0;
 	}else {
 		return 1;
