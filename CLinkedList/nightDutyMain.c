@@ -68,7 +68,7 @@ Employee* WhosNightDuty(List* plist, char* name, int day) {
 		LNext(plist, &ret);
 	}
 	// Terry라는 당직자가 기준이 되도록 찾는다. (해결)
-	// Terry말고 다른 당직자를 기준으로 정하지 못한다. 
+	// Terry말고 다른 당직자를 기준으로 정하지 못한다. 나중에 개선하자.. 
 	
 	while(LNext(plist, &ret) && day >= 0) day--;
 		
