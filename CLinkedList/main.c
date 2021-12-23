@@ -1,15 +1,9 @@
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include "CLinkedList.h"
-/*
-int WhoIsPrecede(LData d1, LData d2){
-	if(d1, d2) {
-		return 0;
-	}else {
-		return 1;
-	}
-}
-*/
+
+
 int main(void) {
 	List list;
 	ListInit(&list);
@@ -26,7 +20,6 @@ int main(void) {
 	LInsertFront(&list, 2);
 	LInsertFront(&list, 1);
 	
-	/*
 	while(1) {
 		printf("자연수 입력 : ");
 		scanf("%d",&data);
@@ -35,12 +28,10 @@ int main(void) {
 		LInsert(&list, data);
 		LInsertFront(&list, data);
 	}
-	*/
 	
 	
 	printf("=== 1순환 출력===\n");
-	int cnt = LCount(&list);
-	
+	int cnt = LCount(&list);	
 	if(LFirst(&list, &data)) {
 		printf("%d ", data);
 		while(LNext(&list, &data) && cnt > 1) {
@@ -49,10 +40,8 @@ int main(void) {
 		}
 	}
 	
-	printf("\n=== 30회 출력===\n");
-	
-	cnt = 30;
-	
+	printf("\n=== 30회 출력===\n");	
+	cnt = 30;	
 	if(LFirst(&list, &data)) {
 		printf("%d ", data);
 		while(LNext(&list, &data) && cnt > 1) {
@@ -63,7 +52,6 @@ int main(void) {
 	
 	printf("\n=== 2의 배수 삭제 ");
 	cnt = LCount(&list);
-	
 	if(LFirst(&list, &data)) {
 		if(data % 2 == 0){
 			LRemove(&list);
@@ -75,9 +63,9 @@ int main(void) {
 			cnt--;
 		}
 	}
-	printf("/ 20회 출력===\n");
-	cnt = 20;
 	
+	printf("/ 20회 출력===\n");
+	cnt = 20;	
 	if(LFirst(&list, &data)) {
 		printf("%d ", data);
 		while(LNext(&list, &data) && cnt > 1) {
@@ -85,9 +73,9 @@ int main(void) {
 			cnt--;
 		}
 	}
-	printf("\n=== 1순환 출력===\n");
-	cnt = LCount(&list);
 	
+	printf("\n=== 1순환 출력===\n");
+	cnt = LCount(&list);	
 	if(LFirst(&list, &data)) {
 		printf("%d ", data);
 		while(LNext(&list, &data) && cnt > 1) {
@@ -98,3 +86,4 @@ int main(void) {
 	
 	return 0;
 }
+*/
