@@ -50,7 +50,6 @@ void ConvToPostfix(char exp[]){
 					SPush(&stack,tok);
 					break;
 				case ')':
-					
 					while(1) {
 						popOp = SPop(&stack);
 						if(popOp == '(') break;
